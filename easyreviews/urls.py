@@ -24,8 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='main-home'),
     path('accounts/dashboard/', dashboard_view, name='dashboard'),
-    path('accounts/login/', login_view),
-    path('accounts/register/', register_view),
+    path('accounts/login/', login_view, name='user-login'),
+    path('accounts/register/', register_view, name='user-register'),
     path('accounts/logout/', logout_view),
 
     path('accounts/reset-password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
