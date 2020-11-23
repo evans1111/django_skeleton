@@ -40,6 +40,7 @@ urlpatterns = [
 
 
 # Submit email form  // PasswordResetView.as_view()
+# Add login/logout logic for nav
 # Email sent success message 
 # Link to password reset form in email
 # Password successfully changed message
