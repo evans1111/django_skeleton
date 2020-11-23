@@ -22,17 +22,39 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="{% url 'main-home' %}">Home</a>
-                <a class="nav-item nav-link" href="#">About</a>
-                <a class="nav-item nav-link" href="#">Features</a>
-                <a class="nav-item nav-link" href="#">Pricing</a>
-            </div>
+            <ul class="nav navbar-nav">
+              {% if user.is_authenticated %}
+                <li><a class="nav-item nav-link" href="{% url 'main-home' %}">Home</a></li>
+                <li><a class="nav-item nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+              {% else %}
+                <li><a class="nav-item nav-link" href="#">About</a></li>
+                <li><a class="nav-item nav-link" href="#">Features</a></li>
+                <li><a class="nav-item nav-link" href="#">Pricing</a></li>
+              {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right ml-auto">
+              {% if user.is_authenticated %}
+                <li><a class="nav-item nav-link" href="{% url 'user-logout' %}">Logout</a></li>
+              {% else %}
+                <li><a class="nav-item nav-link" href="{% url 'user-login' %}">Login</a></li>
+                <li><a class="nav-item nav-link" href="{% url 'user-register' %}">Sign Up</a></li>
+              {% endif %}
+            </ul>
         </div>
-    </div>
+        
+      </div>
   </nav>
   <body>
-      {% block content %} {% endblock %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          <div class="container">
+            {{ message }}
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% block content %} {% endblock %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -9,6 +9,7 @@
         {{ form|crispy }}
         <input type="submit" />
     </form>
+    <small class="muted flex mt-3"><span class="mr-1">Forget your password?</span><a href="{% url 'reset_password' %}">Request A New Password</small></a> 
 </div>
 {% endblock %}
 

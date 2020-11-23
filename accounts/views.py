@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 from django.contrib.auth import (
     authenticate,
@@ -45,6 +45,8 @@ def register_view(request):
         first_name = form.cleaned_data.get('first_name')
         last_name = form.cleaned_data.get('last_name')
 
+        messages.success(request, f'Welcome, {first_name}!')
+
         user.save()
         new_user = authenticate(email=user.email, password=password)
         login(request, user)
@@ -59,4 +61,5 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
+    messages.success(request, f'You have been logged out.')
     return redirect('/')

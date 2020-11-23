@@ -26,7 +26,7 @@ urlpatterns = [
     path('accounts/dashboard/', dashboard_view, name='dashboard'),
     path('accounts/login/', login_view, name='user-login'),
     path('accounts/register/', register_view, name='user-register'),
-    path('accounts/logout/', logout_view),
+    path('accounts/logout/', logout_view, name='user-logout'),
 
     path('accounts/reset-password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
     path('accounts/reset-password-sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
