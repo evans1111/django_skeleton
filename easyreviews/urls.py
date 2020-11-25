@@ -35,12 +35,8 @@ urlpatterns = [
 ]
 
 
-# Set up gitignore for Secret Key & Email info
+# Set up gitignore for Secret Key & Email info -- DONE
 # Create VIEWS for PW Resets *****
 
-
-# Submit email form  // PasswordResetView.as_view()
-# Add login/logout logic for nav
-# Email sent success message 
-# Link to password reset form in email
-# Password successfully changed message
+# Update client form on user dashboard to add client to that of the signed-in user
+    # Make this a user form instead of separate client form?

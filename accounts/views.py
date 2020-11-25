@@ -9,13 +9,31 @@ from django.contrib.auth import (
     logout
 )
 
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm, ClientForm
 
 # Create your views here.
 
 @login_required
 def dashboard_view(request):
-    return render(request, "dashboard.html", {})
+    # return render(request, "dashboard.html", {})
+
+    if request.method == 'POST':
+        form = ClientForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            return render(request, 'dashboard.html')
+        else:
+            print("Error. Please check this client's information and try adding them again.")
+    else:
+        form = ClientForm(request.POST or None)
+        
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'dashboard.html', context)
+
 
 def login_view(request):
     next = request.GET.get('next')

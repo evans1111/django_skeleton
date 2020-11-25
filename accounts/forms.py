@@ -4,7 +4,8 @@ from django.contrib.auth import (
     get_user_model
 
 )
-from .models import User
+from .models import User, Client
+from django.forms import ModelForm
 
 # User = get_user_model()
 
@@ -57,4 +58,22 @@ class UserRegisterForm(forms.ModelForm):
                 "This email is already being used"
         )
         return super(UserRegisterForm, self).clean(*args, **kwargs)
+
+
+class ClientForm(forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = ['first_name', 'last_name', 'email', 'phone_num']
+        first_name = forms.CharField(label="First Name")
+        last_name = forms.CharField(label="Last Name")
+        email = forms.EmailField(label='Email Address')
+        phone_num = forms.CharField(label="Phone Number", max_length=10)
+    
+    def clean(self, *args, **kwargs):
+        first_name = self.cleaned_data.get('first_name')
+        last_name = self.cleaned_data.get('last_name')
+        email = self.cleaned_data.get('email')
+        phone_num = self.cleaned_data.get('phone_num')
+        
+        return super(ClientForm, self).clean(*args, **kwargs)
 

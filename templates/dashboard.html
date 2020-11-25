@@ -1,14 +1,16 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
     <h1>Dashboard</h1>
-    {% if request.user.first_name %}
-        <p>Welcome, {{ request.user.first_name }}!</p>
-    {% endif %}
-
-    <div class="">
-        <a class="btn btn-secondary" href="/accounts/logout">Logout</a>
-    </div>
 </div>
+<div class="container">
+    <h4>Add Client</h4>   
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Add" />
+    </form>
+  </div>
 {% endblock %}

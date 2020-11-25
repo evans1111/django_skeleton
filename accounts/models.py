@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.forms import ModelForm
+
 
 
 class UserManager(BaseUserManager):
@@ -37,9 +39,13 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class User(AbstractUser):
-    """User model."""
 
+# FIX MODEL RELATIONSHIPS
+# CLIENT CLASS - SINGULAR NOT PLURAL
+# ADD NEW MODELS TO DJANGO ADMIN PANEL
+
+class User(AbstractUser):
+    # User Model
     username = None
     email = models.EmailField(_('email address'), unique=True)
 
@@ -47,3 +53,20 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+
+class Client(models.Model):
+    first_name = models.CharField(max_length=80)
+    last_name = models.CharField(max_length=80)
+    email = models.EmailField(max_length=80)
+    phone_num = models.CharField(null=False, blank=False, unique=True, max_length=10)
+    
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return "%s %s %s" % (self.first_name, self.last_name, self.email)
+
+
+
+
+    
