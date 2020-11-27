@@ -16,19 +16,19 @@ from .forms import UserLoginForm, UserRegisterForm, ClientForm
 @login_required
 def dashboard_view(request):
     # return render(request, "dashboard.html", {})
-
     if request.method == 'POST':
         form = ClientForm(request.POST or None)
-
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            # form.save()
             return render(request, 'dashboard.html')
         else:
             print("Error. Please check this client's information and try adding them again.")
     else:
         form = ClientForm(request.POST or None)
         
-
     context = {
         'form': form,
     }

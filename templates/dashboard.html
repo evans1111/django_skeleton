@@ -6,11 +6,30 @@
     <h1>Dashboard</h1>
 </div>
 <div class="container">
-    <h4>Add Client</h4>   
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" value="Add" />
-    </form>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="client-list">
+                {% for client in user.clients.all %}
+                    <div class="card">
+                        <h5 class="card-header">{{client.first_name}} {{ client.last_name }}</h5>
+                        <div class="card-body">
+                        <h5 class="card-title">Status:</h5>
+                        <p class="card-text"><strong>Email: </strong>{{ client.email }} | <strong>Phone: </strong>{{ client.phone_num }}</p>
+                        <a href="#" class="btn btn-primary">Send Review Request</a>
+                        </div>
+                    </div>        
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Add A Client</h4>   
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" value="Add" />
+            </form>
+        </div>
+    </div>
   </div>
 {% endblock %}

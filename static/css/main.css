@@ -16,3 +16,8 @@
     text-align: center;
     margin: 3rem;
 }
+
+/* ========== User Dashboard ========== */
+.client-list .card {
+    margin: 1rem 0;
+}
